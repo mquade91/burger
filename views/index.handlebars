@@ -1,0 +1,90 @@
+{{!-- create template that Handlebars can render onto--}}
+{{!--button in that'll submit user input into burgers_db--}}
+
+
+<h1>EAT'A-BURGER!!</h1>
+
+<h2>Burgers that need to be eaten</h2>
+
+<ul>
+    {{#each burgers}}
+        {{#unless devoured}}
+            <li>{{this.burger_name}}</li>
+        {{/unless}}
+    {{/each}}
+</ul>
+
+<h2>Burgers that have been devoured</h2>
+
+<ul>
+    {{#each burgers}}
+        {{#if devoured}}
+            {{bugers devoured = false}}
+        {{/if}}
+    {{/each}}
+</ul>
+
+<h2>Add a burger</h2>
+<form class="create-form">
+
+    <div class="form-group">
+        <label for="ca">Burger Name:</label>
+        <input type="text" id="ca" name="name">
+    </div>
+
+    <div class="form-group">
+        <label for="dev">Devoured?</label><br>
+        <input type="radio" name="devoured" value="1" checked> Devoured!<br>
+        <input type="radio" name="devoured" value="0"> Needs to be eaten
+    </div>
+
+    <button type="submit">Add Burger</button>
+</form>
+
+{{name}}
+<button class="change-devoured" data-id="{{id}}" data-newDevour="{{devoured}}">
+		{{#if devoured}}Devoured!{{else}}Eat UP!{{/if}}
+</button>
+
+
+
+<script>
+    $(function() {
+        $(".change-devoured").on("click", function(event) {
+            var id = $(this).data("id");
+            var newDevour = $(this).data("newDevour");
+
+            var newDevourState = {
+                devour: newDevour
+            };
+
+            $.ajax("/api/burgers" + id, {
+                type: "PUT",
+                data: newDevourState
+            }).then(
+                function() {
+                    console.log("changed devour to ", newDevour);
+                    //reload the page to get updated list
+                    location.reload();
+                });
+        });
+
+        $(".create-form").on("submit", function(event) {
+            event.preventDefault();
+
+
+            var newBurger = {
+                name: $("#ca").val().trim(),
+                devoured: $("[name=devoured]:checked").val().trim()
+            };
+            $.ajax("/api/burgers", {
+                type: "POST",
+                data: newBurger
+            }).then(
+                function() {
+                    console.log("created new burger");
+                    // location.reload();
+                });
+        });
+    });
+</script>
