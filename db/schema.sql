@@ -4,9 +4,10 @@
 -- devoured: a boolean.
 -- time: a TIMESTAMP.
 
-CREATE DATABASE burgers_db;
+-- CREATE DATABASE burgers_db;
+-- USE burgers_db;
 
-USE burgers_db;
+USE gfcelxbnh92xwcyn;
 
 -- creating table
 CREATE TABLE burgers (
