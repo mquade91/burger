@@ -1,13 +1,10 @@
--- create a burgers table with these fields:
--- id: an auto incrementing int that serves as the primary key.
--- burger_name: a string.
--- devoured: a boolean.
--- time: a TIMESTAMP.
 
--- CREATE DATABASE burgers_db;
--- USE burgers_db;
+-- mySQL command
+CREATE DATABASE burgers_db;
+USE burgers_db;
 
-USE gfcelxbnh92xwcyn;
+-- JAWs DB command
+-- USE gfcelxbnh92xwcyn;
 
 -- creating table
 CREATE TABLE burgers (

@@ -9,7 +9,16 @@
 <ul>
     {{#each burgers}}
         {{#unless devoured}}
-            <li>{{this.burger_name}}</li>
+            {{!--Add a DELETE BUTTON TO BURGERS!!--}}
+            <li>
+                {{this.burger_name}}
+                <button class="change-devoured" data id="{{id}}" data-newDevour="{{devour}}">
+                   {{#if devoured}}Make it again!{{else}}DEVOUR!{{/if}} 
+                </button>
+
+                <button class="delete-burger" data-id="{{this.id}}">DELETE</button>
+            </li>
+
         {{/unless}}
     {{/each}}
 </ul>
@@ -19,7 +28,18 @@
 <ul>
     {{#each burgers}}
         {{#if devoured}}
-            {{bugers devoured = false}}
+            <li>{{this.burger_name}}
+
+                <button class="change-devoured" data id="{{id}}" data-newDevour="{{devour}}">
+                   {{#if devoured}}EAT AGAIN!{{else}}DEVOUR!{{/if}} 
+                </button>
+
+                <button class="delete-burger" data-id="{{this.id}}">DELETE</button>
+
+
+
+            </li>
+
         {{/if}}
     {{/each}}
 </ul>
@@ -43,7 +63,7 @@
 
 {{name}}
 <button class="change-devoured" data-id="{{id}}" data-newDevour="{{devoured}}">
-		{{#if devoured}}Devoured!{{else}}Eat UP!{{/if}}
+		{{#if devoured}}Devoured!{{else}}Needs to be eaten!{{/if}}
 </button>
 
 
@@ -83,7 +103,20 @@
             }).then(
                 function() {
                     console.log("created new burger");
-                    // location.reload();
+                    location.reload();
+                });
+        });
+
+        //need to make a delete button
+        $(".delete-burger").on("click", function(event) {
+            var id = $(this).data("id");
+
+            $.ajax("/api/cats" + id, {
+                type: "DELETE"
+            }).then(
+                function() {
+                    console.log("Deleted Burger");
+                    location.reload();
                 });
         });
     });
