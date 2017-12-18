@@ -1,29 +1,29 @@
 //establishing connection to DBs
 
 var mysql = require('mysql');
-//var connection;
+var connection;
 
 //connection for cloud9/mysql
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: "",
-    database: "burgers_db"
-});
+// var connection = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: "",
+//     database: "burgers_db"
+// });
 
 
 //connection for heroku
-// if (process.env.JAWSDB_URL) {
-//     connection = mysql.createConnection(process.env.JAWSDB_URL);
-// }
-// else {
-//     connection = mysql.createConnection({
-//         host: "tk3mehkfmmrhjg0b.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-//         user: "k0nga33r4susw6t8",
-//         password: "h5jo1xdvfthysv7i",
-//         database: "gfcelxbnh92xwcyn"
-//     });
-// };
+if (process.env.JAWSDB_URL) {
+    connection = mysql.createConnection(process.env.JAWSDB_URL);
+}
+else {
+    connection = mysql.createConnection({
+        host: "tk3mehkfmmrhjg0b.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+        user: "k0nga33r4susw6t8",
+        password: "h5jo1xdvfthysv7i",
+        database: "gfcelxbnh92xwcyn"
+    });
+}
 
 
 connection.connect(function(err) {
