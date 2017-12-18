@@ -102,7 +102,7 @@
 
         //need to make a delete button
         $(".delete-burger").on("click", function(event) {
-            var id = $(this).attr("id");
+            var id = $(this).data("id");
 
             $.ajax("/api/burgers/" + id, {
                 type: "DELETE"
