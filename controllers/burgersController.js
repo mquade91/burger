@@ -1,3 +1,6 @@
+//PUT AND DELETER GETTING 404 ERRORS!!!!
+//CHECK COMMENT ABOVE!----------------------------------
+
 var express = require('express');
 var router = express.Router();
 var burger = require("../models/burger.js");
@@ -27,8 +30,8 @@ router.post("/api/burgers", function(req, res) {
 
 
 //update route for burger
-router.put("api/burgers/:id", function(req, res) {
-    var condition = "id= " + req.params.id;
+router.put("/api/burgers/:id", function(req, res) {
+    var condition = "id = " + req.params.id;
 
     console.log("condition", condition);
 

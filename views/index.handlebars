@@ -12,8 +12,8 @@
             {{!--Add a DELETE BUTTON TO BURGERS!!--}}
             <li>
                 {{this.burger_name}}
-                <button class="change-devoured" data id="{{id}}" data-newDevour="{{devour}}">
-                   {{#if devoured}}Make it again!{{else}}DEVOUR!{{/if}} 
+                <button class="change-devoured" data-id="{{this.id}}" data-newdevour="{{devoured}}">
+                   {{#if devoured}}EAT AGAIN!{{else}}DEVOUR!{{/if}} 
                 </button>
 
                 <button class="delete-burger" data-id="{{this.id}}">DELETE</button>
@@ -30,7 +30,7 @@
         {{#if devoured}}
             <li>{{this.burger_name}}
 
-                <button class="change-devoured" data id="{{id}}" data-newDevour="{{devour}}">
+                <button class="change-devoured" data-id="{{this.id}}" data-newdevour="{{devoured}}">
                    {{#if devoured}}EAT AGAIN!{{else}}DEVOUR!{{/if}} 
                 </button>
 
@@ -61,24 +61,17 @@
     <button type="submit">Add Burger</button>
 </form>
 
-{{name}}
-<button class="change-devoured" data-id="{{id}}" data-newDevour="{{devoured}}">
-		{{#if devoured}}Devoured!{{else}}Needs to be eaten!{{/if}}
-</button>
-
-
-
 <script>
     $(function() {
         $(".change-devoured").on("click", function(event) {
             var id = $(this).data("id");
-            var newDevour = $(this).data("newDevour");
+            var newDevour = !parseInt($(this).data("newdevour"));
 
             var newDevourState = {
-                devour: newDevour
+                devoured: newDevour
             };
 
-            $.ajax("/api/burgers" + id, {
+            $.ajax("/api/burgers/" + id, {
                 type: "PUT",
                 data: newDevourState
             }).then(
@@ -109,13 +102,13 @@
 
         //need to make a delete button
         $(".delete-burger").on("click", function(event) {
-            var id = $(this).data("id");
+            var id = $(this).attr("id");
 
-            $.ajax("/api/cats" + id, {
+            $.ajax("/api/burgers/" + id, {
                 type: "DELETE"
             }).then(
                 function() {
-                    console.log("Deleted Burger");
+                    console.log("Deleted Burger", id);
                     location.reload();
                 });
         });
