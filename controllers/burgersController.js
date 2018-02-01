@@ -1,11 +1,10 @@
-//PUT AND DELETER GETTING 404 ERRORS!!!!
-//CHECK COMMENT ABOVE!----------------------------------
+//config/connection.js
 
 var express = require('express');
 var router = express.Router();
 var burger = require("../models/burger.js");
 
-//get burger route
+//GET route to get burger data
 router.get("/", function(req, res) {
     burger.all(function(data) {
         var hbsObject = {
@@ -16,7 +15,7 @@ router.get("/", function(req, res) {
     });
 });
 
-//create burger route
+//POST route to create burger 
 router.post("/api/burgers", function(req, res) {
     burger.create([
        "burger_name", "devoured"
@@ -29,7 +28,7 @@ router.post("/api/burgers", function(req, res) {
 });
 
 
-//update route for burger
+//PUT route to update burger status
 router.put("/api/burgers/:id", function(req, res) {
     var condition = "id = " + req.params.id;
 
@@ -48,7 +47,7 @@ router.put("/api/burgers/:id", function(req, res) {
     });
 });
 
-//delete a burger route
+//DELETE  burger route
 router.delete("/api/burgers/:id", function(req, res) {
     var condition = "id = " + req.params.id;
 

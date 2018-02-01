@@ -3,7 +3,7 @@
 var mysql = require('mysql');
 var connection;
 
-//connection for cloud9/mysql
+//connection for cloud9/mysql (app is currently deployed to heroku)
 // var connection = mysql.createConnection({
 //     host: 'localhost',
 //     user: 'root',
@@ -12,7 +12,7 @@ var connection;
 // });
 
 
-//connection for heroku
+//connection for heroku info comes from JAWs db (DBaaS provider) 
 if (process.env.JAWSDB_URL) {
     connection = mysql.createConnection(process.env.JAWSDB_URL);
 }

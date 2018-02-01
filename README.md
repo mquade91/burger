@@ -2,4 +2,4 @@
  Burger App
  User can add burger
           deleter burger
-           devour burger
+          devour burger
