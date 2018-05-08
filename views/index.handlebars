@@ -1,116 +1,107 @@
-{{!-- create template that Handlebars can render onto--}}
-{{!--button in that'll submit user input into burgers_db--}}
+{{!-- create template that Handlebars can render onto--}} {{!--button in that'll submit user input into burgers_db--}}
 
+<div class="container">
+  <h1>EAT'A-BURGER!!</h1>
 
-<h1>EAT'A-BURGER!!</h1>
+  <h2>Burgers that need to be eaten</h2>
 
-<h2>Burgers that need to be eaten</h2>
+  <ul>
+    {{#each burgers}} {{#unless devoured}} {{!--Add a DELETE BUTTON TO BURGERS!!--}}
+    <li>
+      {{this.burger_name}}
+      <button class="change-devoured" data-id="{{this.id}}" data-newdevour="{{devoured}}">
+        {{#if devoured}}EAT AGAIN!{{else}}DEVOUR!{{/if}}
+      </button>
 
-<ul>
-    {{#each burgers}}
-        {{#unless devoured}}
-            {{!--Add a DELETE BUTTON TO BURGERS!!--}}
-            <li>
-                {{this.burger_name}}
-                <button class="change-devoured" data-id="{{this.id}}" data-newdevour="{{devoured}}">
-                   {{#if devoured}}EAT AGAIN!{{else}}DEVOUR!{{/if}} 
-                </button>
+      <button class="delete-burger" data-id="{{this.id}}">DELETE</button>
+    </li>
 
-                <button class="delete-burger" data-id="{{this.id}}">DELETE</button>
-            </li>
+    {{/unless}} {{/each}}
+  </ul>
 
-        {{/unless}}
-    {{/each}}
-</ul>
+  <h2>Burgers that have been devoured</h2>
 
-<h2>Burgers that have been devoured</h2>
+  <ul>
+    {{#each burgers}} {{#if devoured}}
+    <li>{{this.burger_name}}
+      <button class="change-devoured" data-id="{{this.id}}" data-newdevour="{{devoured}}">
+        {{#if devoured}}EAT AGAIN!{{else}}DEVOUR!{{/if}}
+      </button>
+      <button class="delete-burger" data-id="{{this.id}}">DELETE</button>
+    </li>
+    {{/if}} {{/each}}
+  </ul>
 
-<ul>
-    {{#each burgers}}
-        {{#if devoured}}
-            <li>{{this.burger_name}}
-
-                <button class="change-devoured" data-id="{{this.id}}" data-newdevour="{{devoured}}">
-                   {{#if devoured}}EAT AGAIN!{{else}}DEVOUR!{{/if}} 
-                </button>
-
-                <button class="delete-burger" data-id="{{this.id}}">DELETE</button>
-
-
-
-            </li>
-
-        {{/if}}
-    {{/each}}
-</ul>
-
-<h2>Add a burger</h2>
-<form class="create-form">
+  <h2>Add a burger</h2>
+  <form class="create-form">
 
     <div class="form-group">
-        <label for="ca">Burger Name:</label>
-        <input type="text" id="ca" name="name">
+      <label for="ca">Burger Name:</label>
+      <input type="text" id="ca" name="name">
     </div>
 
     <div class="form-group">
-        <label for="dev">Devoured?</label><br>
-        <input type="radio" name="devoured" value="1" checked> Devoured!<br>
-        <input type="radio" name="devoured" value="0"> Needs to be eaten
+      <label for="dev">Devoured?</label>
+      <br>
+      <input type="radio" name="devoured" value="1" checked> Devoured!
+      <br>
+      <input type="radio" name="devoured" value="0"> Needs to be eaten
     </div>
 
     <button type="submit">Add Burger</button>
-</form>
+  </form>
+</div>
 
 <script>
-    $(function() {
-        $(".change-devoured").on("click", function(event) {
-            var id = $(this).data("id");
-            var newDevour = !parseInt($(this).data("newdevour"));
+  $(function () {
+    $(".change-devoured").on("click", function (event) {
+      var id = $(this).data("id");
+      var newDevour = !parseInt($(this).data("newdevour"));
 
-            var newDevourState = {
-                devoured: newDevour
-            };
+      var newDevourState = {
+        devoured: newDevour
+      };
 
-            $.ajax("/api/burgers/" + id, {
-                type: "PUT",
-                data: newDevourState
-            }).then(
-                function() {
-                    console.log("changed devour to ", newDevour);
-                    //reload the page to get updated list
-                    location.reload();
-                });
-        });
-
-        $(".create-form").on("submit", function(event) {
-            event.preventDefault();
-
-
-            var newBurger = {
-                name: $("#ca").val().trim(),
-                devoured: $("[name=devoured]:checked").val().trim()
-            };
-            $.ajax("/api/burgers", {
-                type: "POST",
-                data: newBurger
-            }).then(
-                function() {
-                    console.log("created new burger");
-                    location.reload();
-                });
-        });
-
-        //need to make a delete button
-        $(".delete-burger").on("click", function(event) {
-            var id = $(this).data("id");
-
-            $.ajax("/api/burgers/" + id, {
-                type: "DELETE"
-            }).then(
-                function() {
-                    console.log("Deleted Burger", id);
-                    location.reload();
-                });
+      $.ajax("/api/burgers/" + id, {
+        type: "PUT",
+        data: newDevourState
+      }).then(
+        function () {
+          console.log("changed devour to ", newDevour);
+          //reload the page to get updated list
+          location.reload();
         });
     });
+
+    $(".create-form").on("submit", function (event) {
+      event.preventDefault();
+
+
+      var newBurger = {
+        name: $("#ca").val().trim(),
+        devoured: $("[name=devoured]:checked").val().trim()
+      };
+      $.ajax("/api/burgers", {
+        type: "POST",
+        data: newBurger
+      }).then(
+        function () {
+          console.log("created new burger");
+          location.reload();
+        });
+    });
+
+    //need to make a delete button
+    $(".delete-burger").on("click", function (event) {
+      var id = $(this).data("id");
+
+      $.ajax("/api/burgers/" + id, {
+        type: "DELETE"
+      }).then(
+        function () {
+          console.log("Deleted Burger", id);
+          location.reload();
+        });
+    });
+  });
 </script>

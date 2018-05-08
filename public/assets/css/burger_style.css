@@ -1,9 +1,16 @@
 /*assets/css/burger_style.css*/
 
 body {
-    background: lightblue;
+  background:white;
 
 }
  .container {
-   align-content: center;
+
+  background: red;
+  color: yellow;
+  text-align: left;
+  padding:10px; */
+  margin: auto;
+  width: 80%;
+
  }
