@@ -5,7 +5,8 @@ body {
 
 }
  .container {
-
+  border: 5%, solid, black;
+  border-radius: 25px;
   background: red;
   color: yellow;
   text-align: left;
