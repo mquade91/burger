@@ -1,17 +1,27 @@
 /*assets/css/burger_style.css*/
 
 body {
-  background:white;
+  background:yellow;
+  font-family: sans-serif;
 
 }
  .container {
+  box-shadow: 5px 10px 8px #888888;
   border: 5%, solid, black;
   border-radius: 25px;
   background: red;
   color: yellow;
   text-align: left;
-  padding:10px;
+  padding:20px;
+  padding-top: 10px;
   margin: auto;
   width: 80%;
 
+ }
+button {
+  border-radius: 25px;
+}
+ button:hover {
+   background: blue;
+   color:white;
  }

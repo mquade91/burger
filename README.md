@@ -7,3 +7,5 @@
 •	Express.js was used to handle routing, GET routes would pull the burger data, POST routes allowed the user to create new burgers, PUT routes allowed the user to update whether the burger was devoured or not, and DELETE allowed the user to delete burgers. <br/>
 •	SQL was used to handle all of the burger data. <br/>
 •	Responsible for all aspects of the project. <br/>
+
+![Home Page](/public/assets/images/homePage.png)
