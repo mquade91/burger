@@ -8,4 +8,4 @@
 •	SQL was used to handle all of the burger data. <br/>
 •	Responsible for all aspects of the project. <br/>
 
-![Home Page](/public/assets/images/homePage.png)
+![Home Page](/public/assets/images/homePage2.png)
